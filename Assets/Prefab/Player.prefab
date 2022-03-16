@@ -21,11 +21,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400138, guid: 9bf96842da24aad4bbecfb7625126635, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.3
+      value: -12.5
       objectReference: {fileID: 0}
     - target: {fileID: 400138, guid: 9bf96842da24aad4bbecfb7625126635, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 400138, guid: 9bf96842da24aad4bbecfb7625126635, type: 3}
       propertyPath: m_LocalPosition.z
@@ -74,6 +74,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100138, guid: 9bf96842da24aad4bbecfb7625126635, type: 3}
   m_PrefabInstance: {fileID: 8732413231691091539}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &8732413231690699951 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400124, guid: 9bf96842da24aad4bbecfb7625126635, type: 3}
+  m_PrefabInstance: {fileID: 8732413231691091539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!54 &461282918777270480
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -88,7 +93,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 120
+  m_Constraints: 88
   m_CollisionDetection: 0
 --- !u!136 &2076869313683744718
 CapsuleCollider:
@@ -103,4 +108,22 @@ CapsuleCollider:
   m_Radius: 0.19403784
   m_Height: 1.7797351
   m_Direction: 1
-  m_Center: {x: 9.727644e-19, y: 0.89838123, z: -0.015556544}
+  m_Center: {x: 0, y: 0.89838123, z: -0.015556544}
+--- !u!114 &129977555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8732413231691188601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba9ec146d4c7f14c9ea71316ede18d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runSpeed: 2
+  walkSpeed: 1
+  moveSpeed: 1
+  weaponPos: {fileID: 0}
+  rightShoulder: {fileID: 8732413231690699951}
+  offsetWeapon: {x: 0.2, y: -0.1, z: -0.18}
