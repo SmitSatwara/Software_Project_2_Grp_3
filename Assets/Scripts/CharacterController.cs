@@ -22,7 +22,15 @@ public class CharacterController : MonoBehaviour
 
 
     public bool IsCrouch= false;
-    // Start is called before the first frame update
+
+
+    public Transform groundCheckPos;
+    private float groundRadius = 0.1f;
+    Collider[] groundColliders;
+    public LayerMask GroundLayer;
+
+    private bool isGrounded = false;
+    public float jumpSpeed=5;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -30,7 +38,7 @@ public class CharacterController : MonoBehaviour
         rsRef = new GameObject("IK Helper");
     }
     // Update is called once per frame
-    void FixedUpdate()
+    void FixedUpdate()   
     {
         PlayerMove();
         ShoulderHandler();
@@ -63,6 +71,28 @@ public class CharacterController : MonoBehaviour
             moveSpeed = crouchSpeed;
            
         }
+
+        if (Input.GetAxis("Jump") > 0 && !IsCrouch && isGrounded)
+        {
+            isGrounded = false;
+            rb.AddForce(new Vector3(0,jumpSpeed, 0));
+        }
+        else if(Input.GetAxis("Jump") > 0 && IsCrouch )
+        {
+            IsCrouch = false;
+        }
+
+        groundColliders = Physics.OverlapSphere(groundCheckPos.transform.position,groundRadius,GroundLayer);
+        if(groundColliders.Length > 0)
+        {
+            isGrounded  = true;
+        }
+        else{
+            isGrounded=false;
+        }
+
+        anim.SetBool("IsGrounded",isGrounded);
+
         anim.SetBool("IsCrouch", IsCrouch);
         float animValue = Mathf.Abs(move);
 
@@ -91,4 +121,6 @@ public class CharacterController : MonoBehaviour
         offsetWeapon.z *= -1;
         offsetWeapon.x *= -1;
     }
+
+    
 }
