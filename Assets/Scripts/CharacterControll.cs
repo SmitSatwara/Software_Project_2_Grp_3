@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterController : MonoBehaviour
+public class CharacterControll : MonoBehaviour
 {
     private Rigidbody rb;
     private Animator anim;
@@ -29,7 +29,7 @@ public class CharacterController : MonoBehaviour
     Collider[] groundColliders;
     public LayerMask GroundLayer;
 
-    private bool isGrounded = false;
+    public bool isGrounded = true;
     public float jumpSpeed=5;
     void Start()
     {
