@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CharacterControll : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class CharacterControll : MonoBehaviour
 
     public bool IsCrouch= false;
 
+    public bool IsAIPlayer = false;
+    private Transform detectedPlayer;
+    private NavMeshAgent mAgent;
 
     public Transform groundCheckPos;
     private float groundRadius = 0.1f;
@@ -33,6 +37,10 @@ public class CharacterControll : MonoBehaviour
     public float jumpSpeed=5;
     void Start()
     {
+        if (IsAIPlayer)
+        {
+            mAgent = GetComponent<NavMeshAgent>();
+        }
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         rsRef = new GameObject("IK Helper");
@@ -40,11 +48,37 @@ public class CharacterControll : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()   
     {
+        NPCMove();
         PlayerMove();
         ShoulderHandler();
     }
+
+    void NPCMove()
+    {
+        anim.SetBool("IsGrounded", isGrounded);
+
+        if(IsAIPlayer && detectedPlayer != null && mAgent!=null)
+        {
+            moveSpeed = runSpeed;
+            mAgent.SetDestination(detectedPlayer.transform.position);
+
+            if(detectedPlayer.transform.position.x < transform.position.x && dirRight)
+            {
+                ChangeDirection();
+            }else if(detectedPlayer.transform.position.x > transform.position.x && !dirRight)
+            {
+                ChangeDirection();
+            }
+            float animVal = mAgent.velocity.x / mAgent.speed;
+            anim.SetFloat("Speed",Mathf.Abs(animVal));
+        }
+        
+    }
     void PlayerMove()
     {
+        if (IsAIPlayer)
+            return;
+        
         float move = Input.GetAxis("Horizontal");
         if (move < 0 && dirRight)
         {
@@ -123,4 +157,8 @@ public class CharacterControll : MonoBehaviour
     }
 
     
+    public void EnemyDetected(Transform player)
+    {
+        detectedPlayer = player;
+    }
 }
