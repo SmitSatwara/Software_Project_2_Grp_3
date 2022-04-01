@@ -649,6 +649,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: dffb229f4a71ea84ebb6cd0b70af2886, type: 2}
+    - target: {fileID: 5502542180906354940, guid: ebe1684ecef25cf4b92dc3d7325b5c7c, type: 3}
+      propertyPath: fireRate
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7770719924823043261, guid: ebe1684ecef25cf4b92dc3d7325b5c7c, type: 3}
       propertyPath: dirRight
       value: 1
@@ -656,6 +660,10 @@ PrefabInstance:
     - target: {fileID: 7770719924823043261, guid: ebe1684ecef25cf4b92dc3d7325b5c7c, type: 3}
       propertyPath: IsAIPlayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770719924823043261, guid: ebe1684ecef25cf4b92dc3d7325b5c7c, type: 3}
+      propertyPath: attackDistance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7904356962055442622, guid: ebe1684ecef25cf4b92dc3d7325b5c7c, type: 3}
       propertyPath: m_Mass
@@ -687,6 +695,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2849600353414490258, guid: 1c606cd534ba2c74098a4eb009473bcf, type: 3}
+      propertyPath: fireRate
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8732413231690700121, guid: 1c606cd534ba2c74098a4eb009473bcf, type: 3}
       propertyPath: m_RootOrder
       value: 3

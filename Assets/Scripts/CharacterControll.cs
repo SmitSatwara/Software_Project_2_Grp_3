@@ -28,6 +28,11 @@ public class CharacterControll : MonoBehaviour
     private Transform detectedPlayer;
     private NavMeshAgent mAgent;
 
+    public bool attack = false;
+    public float attackDistance;
+
+
+
     public Transform groundCheckPos;
     private float groundRadius = 0.1f;
     Collider[] groundColliders;
@@ -69,6 +74,16 @@ public class CharacterControll : MonoBehaviour
             {
                 ChangeDirection();
             }
+
+            float dist = Vector3.Distance(detectedPlayer.transform.position, transform.position);   
+            if(Mathf.Abs(dist) <= attackDistance)
+            {
+                attack = true;
+            }else if(Mathf.Abs(dist) > attackDistance)
+            {
+                attack=false;
+            }
+
             float animVal = mAgent.velocity.x / mAgent.speed;
             anim.SetFloat("Speed",Mathf.Abs(animVal));
         }

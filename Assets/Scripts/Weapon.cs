@@ -31,6 +31,10 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(ref_CC.IsAIPlayer && ref_CC.attack)
+        {
+            Fire();
+        }
         if(Input.GetKeyDown(KeyCode.X) && !ref_CC.IsAIPlayer)
         {
             Fire();
@@ -53,13 +57,13 @@ public class Weapon : MonoBehaviour
         GameObject MF;
         if (muzzleFlash != null)
         {
-            MF = (GameObject)Instantiate(muzzleFlash, muzzleFlashPostion.position, muzzleFlashPostion.rotation);
+            MF = (GameObject)Instantiate(muzzleFlash, muzzleFlashPostion.position, muzzleFlashPostion.rotation,muzzleFlashPostion);
             Destroy(MF,0.25f);
         }
         GameObject BT;
         if (bulletTracer != null)
         {
-            BT = (GameObject)Instantiate(bulletTracer, bulletTracerPosition.position, bulletTracerPosition.rotation);
+            BT = (GameObject)Instantiate(bulletTracer, bulletTracerPosition.position, bulletTracerPosition.rotation,bulletTracerPosition);
             Destroy(BT, 0.25f);
         }
 
