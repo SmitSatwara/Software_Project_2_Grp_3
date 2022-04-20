@@ -31,7 +31,7 @@ public class CharacterControll : MonoBehaviour
     public bool attack = false;
     public float attackDistance;
 
-
+    public bool isDead = false;
 
     public Transform groundCheckPos;
     private float groundRadius = 0.1f;
@@ -60,6 +60,9 @@ public class CharacterControll : MonoBehaviour
 
     void NPCMove()
     {
+        if (isDead)
+            return;
+
         anim.SetBool("IsGrounded", isGrounded);
 
         if(IsAIPlayer && detectedPlayer != null && mAgent!=null)
@@ -89,10 +92,24 @@ public class CharacterControll : MonoBehaviour
         }
         
     }
+
+    public void Death()
+    {
+        anim.Play("Death");
+        detectedPlayer = null;
+        attack = false;
+        isDead = true;
+
+    }
+
     void PlayerMove()
     {
         if (IsAIPlayer)
             return;
+
+        if (isDead)
+            return;
+
         
         float move = Input.GetAxis("Horizontal");
         if (move < 0 && dirRight)

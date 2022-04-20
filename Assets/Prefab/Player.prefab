@@ -385,27 +385,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 6834cf717cda7c44793c53c379fa5779, type: 3}
   m_PrefabInstance: {fileID: 1022215315}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2849600353414490258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1022116403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32307ea7a72100b40bb197c368aeffcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireRate: 0.1
-  range: 100
-  muzzleFlash: {fileID: 1803487934092804, guid: 0151ebcf3769222439307475c5fd81b2, type: 3}
-  bulletTracer: {fileID: 1752376102729242, guid: 45383e30a409df1458483ed192bf0e16, type: 3}
-  muzzleFlashPostion: {fileID: 4276295908194061147}
-  firePosition: {fileID: 602031417874399848}
-  bulletTracerPosition: {fileID: 7604355432172664798}
-  fireSoundClip: {fileID: 8300000, guid: c043f9b485f7ac94098327730a64718c, type: 3}
-  fireTime: 0
 --- !u!82 &5549022364526596385
 AudioSource:
   m_ObjectHideFlags: 0
@@ -502,6 +481,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2849600353414490258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022116403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32307ea7a72100b40bb197c368aeffcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 0.1
+  range: 100
+  damageAmt: 10
+  muzzleFlash: {fileID: 1803487934092804, guid: 0151ebcf3769222439307475c5fd81b2, type: 3}
+  bulletTracer: {fileID: 1752376102729242, guid: 45383e30a409df1458483ed192bf0e16, type: 3}
+  muzzleFlashPostion: {fileID: 4276295908194061147}
+  firePosition: {fileID: 602031417874399848}
+  bulletTracerPosition: {fileID: 7604355432172664798}
+  fireSoundClip: {fileID: 8300000, guid: c043f9b485f7ac94098327730a64718c, type: 3}
+  fireTime: 0
 --- !u!1001 &8732413231691091539
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -638,6 +639,8 @@ MonoBehaviour:
   offsetWeapon: {x: 0.2, y: -0.1, z: -0.18}
   IsCrouch: 0
   IsAIPlayer: 0
+  attack: 0
+  attackDistance: 0
   groundCheckPos: {fileID: 41710974}
   GroundLayer:
     serializedVersion: 2

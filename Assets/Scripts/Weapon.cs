@@ -7,9 +7,12 @@ public class Weapon : MonoBehaviour
 
     public float fireRate;
     public float range;
+    public float damageAmt;
     public GameObject muzzleFlash;
     public GameObject bulletTracer;
-   
+
+    public PlayerHealth pHealth;
+    public EnemyHealth eHealth;
 
     public Transform muzzleFlashPostion;
     public Transform firePosition;
@@ -24,6 +27,8 @@ public class Weapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pHealth = GetComponentInParent<PlayerHealth>();
+        eHealth = GetComponentInParent<EnemyHealth>();
         ref_CC = GetComponentInParent<CharacterControll>();
         fireSoundSource = GetComponent<AudioSource>();
     }
@@ -31,11 +36,12 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(ref_CC.IsAIPlayer && ref_CC.attack)
+        
+        if(Input.GetKey(KeyCode.Mouse0) /*Input.GetKeyDown(KeyCode.X)*/ && !ref_CC.IsAIPlayer)
         {
             Fire();
         }
-        if(Input.GetKeyDown(KeyCode.X) && !ref_CC.IsAIPlayer)
+        if (ref_CC.IsAIPlayer && ref_CC.attack)
         {
             Fire();
         }
@@ -49,10 +55,30 @@ public class Weapon : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(firePosition.position, firePosition.forward, out hit, range))
+        Debug.DrawRay(firePosition.position, firePosition.forward * range, Color.red);
+        if (Physics.Raycast(firePosition.position, firePosition.forward*range, out hit))
         {
+            if(hit.collider.tag == "Enemy" )
+            {
+                var health = hit.transform.GetComponent<EnemyHealth>();
+                health.Damage(damageAmt);
+
+                if(health.currentHealth==0)
+                {
+                    //Destroy(GameObject.FindWithTag("Enemy"),1f);
+                }
+            }
+
+            if (hit.collider.tag == "Player")
+            {
+                var health = hit.transform.GetComponent<PlayerHealth>();
+                health.Damage(damageAmt);
+
+                
+            }
 
         }
+
 
         GameObject MF;
         if (muzzleFlash != null)
@@ -74,4 +100,6 @@ public class Weapon : MonoBehaviour
         fireTime = 0.0f;
        
     }
+
+
 }
