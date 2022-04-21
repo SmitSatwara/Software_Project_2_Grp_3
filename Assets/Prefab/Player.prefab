@@ -498,6 +498,8 @@ MonoBehaviour:
   damageAmt: 10
   muzzleFlash: {fileID: 1803487934092804, guid: 0151ebcf3769222439307475c5fd81b2, type: 3}
   bulletTracer: {fileID: 1752376102729242, guid: 45383e30a409df1458483ed192bf0e16, type: 3}
+  pHealth: {fileID: 0}
+  eHealth: {fileID: 0}
   muzzleFlashPostion: {fileID: 4276295908194061147}
   firePosition: {fileID: 602031417874399848}
   bulletTracerPosition: {fileID: 7604355432172664798}
@@ -641,12 +643,14 @@ MonoBehaviour:
   IsAIPlayer: 0
   attack: 0
   attackDistance: 0
+  isDead: 0
   groundCheckPos: {fileID: 41710974}
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
   isGrounded: 1
   jumpSpeed: 60
+  inventory: {fileID: 0}
 --- !u!114 &129977556
 MonoBehaviour:
   m_ObjectHideFlags: 0

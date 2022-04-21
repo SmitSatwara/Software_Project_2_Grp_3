@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class DetectEnemy : MonoBehaviour
 {
-    private CharacterControll ref_CharacterControl;
+    private EnemyController ref_CharacterControl;
     // Start is called before the first frame update
     void Start()
     {
-        ref_CharacterControl=GetComponentInParent<CharacterControll>();
+        ref_CharacterControl=GetComponentInParent<EnemyController>();
     }
 
 

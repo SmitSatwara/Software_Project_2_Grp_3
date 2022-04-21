@@ -20,8 +20,9 @@ public class Weapon : MonoBehaviour
 
     public AudioClip fireSoundClip;
     private AudioSource fireSoundSource;
-
+    public int EnemyCounter = 0;
     private CharacterControll ref_CC;
+
 
     public float fireTime=0.0f;
     // Start is called before the first frame update
@@ -37,14 +38,15 @@ public class Weapon : MonoBehaviour
     void FixedUpdate()
     {
         
-        if(Input.GetKey(KeyCode.Mouse0) /*Input.GetKeyDown(KeyCode.X)*/ && !ref_CC.IsAIPlayer)
+        if(Input.GetKey(KeyCode.Mouse0) /*Input.GetKeyDown(KeyCode.X)*/ )
         {
             Fire();
+            
         }
-        if (ref_CC.IsAIPlayer && ref_CC.attack)
+        /*if (ref_CC.IsAIPlayer && ref_CC.attack)
         {
             Fire();
-        }
+        }*/
         fireTime += Time.deltaTime;
     }
 
@@ -63,19 +65,19 @@ public class Weapon : MonoBehaviour
                 var health = hit.transform.GetComponent<EnemyHealth>();
                 health.Damage(damageAmt);
 
-                if(health.currentHealth==0)
+                if(health.currentHealth<0)
                 {
-                    //Destroy(GameObject.FindWithTag("Enemy"),1f);
+                    EnemyCounter++;
                 }
             }
 
-            if (hit.collider.tag == "Player")
-            {
-                var health = hit.transform.GetComponent<PlayerHealth>();
-                health.Damage(damageAmt);
+            //if (hit.collider.tag == "Player")
+            //{
+            //    var health = hit.transform.GetComponent<PlayerHealth>();
+            //    health.Damage(damageAmt);
 
                 
-            }
+            //}
 
         }
 

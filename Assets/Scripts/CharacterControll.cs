@@ -22,9 +22,9 @@ public class CharacterControll : MonoBehaviour
     public Vector3 offsetWeapon;
 
 
-    public bool IsCrouch= false;
+    public bool IsCrouch = false;
 
-    public bool IsAIPlayer = false;
+    //public bool IsAIPlayer = false;
     private Transform detectedPlayer;
     private NavMeshAgent mAgent;
 
@@ -39,25 +39,27 @@ public class CharacterControll : MonoBehaviour
     public LayerMask GroundLayer;
 
     public bool isGrounded = true;
-    public float jumpSpeed=5;
+    public float jumpSpeed = 5;
+
+    public Inventory inventory;
     void Start()
     {
-        if (IsAIPlayer)
-        {
-            mAgent = GetComponent<NavMeshAgent>();
-        }
+        //if (IsAIPlayer)
+        //{
+          //  mAgent = GetComponent<NavMeshAgent>();
+        //}
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         rsRef = new GameObject("IK Helper");
     }
     // Update is called once per frame
-    void FixedUpdate()   
+    void FixedUpdate()
     {
-        NPCMove();
+       //NPCMove();
         PlayerMove();
         ShoulderHandler();
     }
-
+    /*
     void NPCMove()
     {
         if (isDead)
@@ -65,32 +67,34 @@ public class CharacterControll : MonoBehaviour
 
         anim.SetBool("IsGrounded", isGrounded);
 
-        if(IsAIPlayer && detectedPlayer != null && mAgent!=null)
+        if (IsAIPlayer && detectedPlayer != null && mAgent != null)
         {
             moveSpeed = runSpeed;
             mAgent.SetDestination(detectedPlayer.transform.position);
 
-            if(detectedPlayer.transform.position.x < transform.position.x && dirRight)
+            if (detectedPlayer.transform.position.x < transform.position.x && dirRight)
             {
                 ChangeDirection();
-            }else if(detectedPlayer.transform.position.x > transform.position.x && !dirRight)
+            }
+            else if (detectedPlayer.transform.position.x > transform.position.x && !dirRight)
             {
                 ChangeDirection();
             }
 
-            float dist = Vector3.Distance(detectedPlayer.transform.position, transform.position);   
-            if(Mathf.Abs(dist) <= attackDistance)
+            float dist = Vector3.Distance(detectedPlayer.transform.position, transform.position);
+            if (Mathf.Abs(dist) <= attackDistance)
             {
                 attack = true;
-            }else if(Mathf.Abs(dist) > attackDistance)
+            }
+            else if (Mathf.Abs(dist) > attackDistance)
             {
-                attack=false;
+                attack = false;
             }
 
             float animVal = mAgent.velocity.x / mAgent.speed;
-            anim.SetFloat("Speed",Mathf.Abs(animVal));
+            anim.SetFloat("Speed", Mathf.Abs(animVal));
         }
-        
+
     }
 
     public void Death()
@@ -100,17 +104,17 @@ public class CharacterControll : MonoBehaviour
         attack = false;
         isDead = true;
 
-    }
+    }*/
 
     void PlayerMove()
     {
-        if (IsAIPlayer)
-            return;
+        //if (IsAIPlayer)
+           // return;
 
         if (isDead)
             return;
 
-        
+
         float move = Input.GetAxis("Horizontal");
         if (move < 0 && dirRight)
         {
@@ -126,7 +130,7 @@ public class CharacterControll : MonoBehaviour
             moveSpeed = runSpeed;
 
         }
-        else if(Mathf.Abs(move) < 0.5 && !IsCrouch)
+        else if (Mathf.Abs(move) < 0.5 && !IsCrouch)
         {
             moveSpeed = walkSpeed;
         }
@@ -135,29 +139,30 @@ public class CharacterControll : MonoBehaviour
         {
             IsCrouch = !IsCrouch;
             moveSpeed = crouchSpeed;
-           
+
         }
 
         if (Input.GetAxis("Jump") > 0 && !IsCrouch && isGrounded)
         {
             isGrounded = false;
-            rb.AddForce(new Vector3(0,jumpSpeed, 0));
+            rb.AddForce(new Vector3(0, jumpSpeed, 0));
         }
-        else if(Input.GetAxis("Jump") > 0 && IsCrouch )
+        else if (Input.GetAxis("Jump") > 0 && IsCrouch)
         {
             IsCrouch = false;
         }
 
-        groundColliders = Physics.OverlapSphere(groundCheckPos.transform.position,groundRadius,GroundLayer);
-        if(groundColliders.Length > 0)
+        groundColliders = Physics.OverlapSphere(groundCheckPos.transform.position, groundRadius, GroundLayer);
+        if (groundColliders.Length > 0)
         {
-            isGrounded  = true;
+            isGrounded = true;
         }
-        else{
-            isGrounded=false;
+        else
+        {
+            isGrounded = false;
         }
 
-        anim.SetBool("IsGrounded",isGrounded);
+        anim.SetBool("IsGrounded", isGrounded);
 
         anim.SetBool("IsCrouch", IsCrouch);
         float animValue = Mathf.Abs(move);
@@ -181,16 +186,27 @@ public class CharacterControll : MonoBehaviour
     void ChangeDirection()
     {
         dirRight = !dirRight;
-        Vector3 PlayerRotation=transform.rotation.eulerAngles;
+        Vector3 PlayerRotation = transform.rotation.eulerAngles;
         PlayerRotation.y *= -1;
-        transform.eulerAngles= PlayerRotation;
+        transform.eulerAngles = PlayerRotation;
         offsetWeapon.z *= -1;
         offsetWeapon.x *= -1;
     }
 
-    
+
     public void EnemyDetected(Transform player)
     {
         detectedPlayer = player;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        IInventoryItem item = collision.collider.GetComponent<IInventoryItem>();
+        if (item != null)
+        {
+            inventory.AddItem(item);
+        }
+    }
+
+   
 }
